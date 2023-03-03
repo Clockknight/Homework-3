@@ -1,6 +1,6 @@
 # Homework-3
 
-Clustering the control charts
+## Clustering the control charts
 
 Data Description: The dataset synthetic_control_data.txt contains 600 examples of control chart time series data. The data is stored in an ASCII file, 600 rows, 60 columns, with a single chart per line. There are six different classes of control charts:
 * Normal
