@@ -5,10 +5,13 @@ package KmeansClustering;
 //import java.util.Scanner;
 //import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Arrays;
 //import java.util.List;
+import java.util.List;
 
 //Author: Ben Burbank
 //Last Update: 28FEB2023
@@ -30,10 +33,10 @@ public class Main {
          */
         String filename = "synthetic_control_data.txt";
         int[] fileParams = fileParameters(filename);
-        //System.out.println(filename + " is " + fileParams[0] + " rows and " + fileParams[1] + " cols.");
+        //System.out.println(filename + " is " + fileParams[0] + " rows and " + fileParams[1] + " cols."); //testing
         int numberOfSeeds = 6;
         int[] seeds = generateRandSeeds(0, fileParams[0]-1, numberOfSeeds);
-        /**
+        /** testing
         System.out.print("Random seeds are: ");
         for(int i = 0; i < seeds.length; i++){
             System.out.print(seeds[i] + " ");
@@ -42,24 +45,66 @@ public class Main {
          */
         Cluster[] myClusters = createClustersFromSeeds(filename, seeds);
         //all clusters with centroids set are contained in an array
-        /**
+        
+        /** testing
         for(int i = 0; i < myClusters.length; i++){
             System.out.println("Cluster " + i + " contains " + myClusters[i].getNumberOfPoints() + " points.");
         }
          */
         
+        //createOutputFiles(myClusters); //testing; use this to test files to go into RapidMiner
+
+        
         //nothing below this point is started
         int iterationLimit = 100;
-        Cluster[] myClustersDone = K_Means.kMeansAlgorithm(myClusters, iterationLimit);
-
-        outputFiles(myClustersDone);
-        
+        //Cluster[] myClustersDone = K_Means.kMeansAlgorithm(myClusters, iterationLimit);
+        //createOutputFiles(myClustersDone);
         
         
     }
 
-    private static void outputFiles(Cluster[] myClustersDone) {
-    }
+    private static void createOutputFiles(Cluster[] myClustersDone) {
+        String fileNames = "";
+        for(int i = 0; i < myClustersDone.length; i++){
+            if(i == myClustersDone.length-1){
+                fileNames = fileNames.concat("OutputFile" + (i+1));
+            }
+            else{
+                fileNames = fileNames.concat("OutputFile" + (i+1) + ",");
+            }
+            
+        }
+        String[] fileNamesArray = fileNames.split(",");
+        
+        for(int i = 0; i < myClustersDone.length; i++){
+            try{
+                File f = new File(fileNamesArray[i]);
+                if(f.exists() && !f.isDirectory()) { 
+                    PrintWriter pr = new PrintWriter(fileNamesArray[i]);    
+                    List<Point> clusterPoints = myClustersDone[i].getPoints();
+                    for (int j=0; j < clusterPoints.size() ; j++){
+                        pr.println(clusterPoints.get(j).toString());
+                    }
+                    pr.print(myClustersDone[i].getCentroid().toString());
+                    pr.close();
+                }
+                else{
+                    f.createNewFile();
+                    PrintWriter pr = new PrintWriter(fileNamesArray[i]);    
+                    List<Point> clusterPoints = myClustersDone[i].getPoints();
+                    for (int j=0; j < clusterPoints.size() ; j++){
+                        pr.println(clusterPoints.get(j).toString());
+                    }
+                    pr.print(myClustersDone[i].getCentroid().toString());
+                    pr.close();
+                }
+            }
+            catch (Exception e){
+                e.printStackTrace();
+                System.out.println("No such file exists.");
+            }
+        }
+    } //end createOutputFiles method
 
     public static int[] fileParameters(String filename){
         //returns an array of 2 values: rowsCount, colsCount
@@ -89,7 +134,7 @@ public class Main {
         rowsCols[0] = rows;
         rowsCols[1] = cols;
         return rowsCols;
-    }
+    } //end fileParameters method
 
     public static int[] generateRandSeeds(int min, int max, int numOfSeeds){
         int[] seeds = new int[numOfSeeds];
@@ -120,7 +165,7 @@ public class Main {
         }
         sortSeeds(seeds);
         return seeds;
-    }
+    } //end generateRandSeeds method
 
     public static void sortSeeds(int[] seeds){
         for(int i = 0; i < seeds.length-1; i++){
@@ -132,7 +177,7 @@ public class Main {
                 }
             }
         }
-    }
+    } //end sortSeeds method
 
     public static Cluster[] createClustersFromSeeds(String filename, int[] seeds){
         BufferedReader reader;
@@ -212,7 +257,7 @@ public class Main {
         }
         
         return completeClusters;
-    }
+    } //end createClustersFromSeeds method
 
 
 } //end of Main method
