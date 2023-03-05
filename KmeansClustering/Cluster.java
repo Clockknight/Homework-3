@@ -6,14 +6,11 @@ public class Cluster {
     public List<Point> points;
 	public Point centroid;
 	public int id;
-	public int pointCounter;
 
-    //Creates a new Cluster
 	public Cluster(int id) {
 		this.id = id;
 		this.points = new ArrayList();
 		this.centroid = null;
-		this.pointCounter = 0;
 	}
     
     public List<Point> getPoints() {
@@ -22,12 +19,10 @@ public class Cluster {
 	
 	public void addPoint(Point point) {
 		points.add(point);
-		this.pointCounter += 1;
 	}
  
 	public void setPoints(List<Point> points) {
 		this.points = points;
-		this.pointCounter += points.size();
 	}
  
 	public Point getCentroid() {
@@ -43,6 +38,10 @@ public class Cluster {
 	}
 
 	public int getNumberOfPoints(){
+		int pointCounter = 0;
+		for (Point point : points) {
+			pointCounter += 1;
+		}
 		return pointCounter;
 	}
 }

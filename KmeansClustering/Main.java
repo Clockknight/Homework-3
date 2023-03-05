@@ -1,17 +1,11 @@
 package KmeansClustering;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.io.PrintWriter;
-//import java.util.Scanner;
-//import java.util.ArrayList;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
-//import java.util.List;
 import java.util.List;
 
 //Author: Ben Burbank
@@ -55,13 +49,10 @@ public class Main {
         createOutputFiles(myClusters);
         */
         
-        //nothing below this point is started
-        int iterationLimit = 100;
-        //Cluster[] myClustersDone = K_Means.kMeansAlgorithm(myClusters, iterationLimit);
-        //createOutputFiles(myClustersDone);
+        Cluster[] myClustersDone = K_Means.kMeansAlgorithm(myClusters);
+        createOutputFiles(myClustersDone);     
         
-        
-    }
+    } //end main method
 
     private static void createOutputFiles(Cluster[] myClustersDone) {
         String fileNames = "";
@@ -405,7 +396,7 @@ public class Main {
         sumVal41/cluster.getNumberOfPoints(), sumVal42/cluster.getNumberOfPoints(), sumVal43/cluster.getNumberOfPoints(), sumVal44/cluster.getNumberOfPoints(), sumVal45/cluster.getNumberOfPoints(), sumVal46/cluster.getNumberOfPoints(), sumVal47/cluster.getNumberOfPoints(), sumVal48/cluster.getNumberOfPoints(), sumVal49/cluster.getNumberOfPoints(), sumVal50/cluster.getNumberOfPoints(),
         sumVal51/cluster.getNumberOfPoints(), sumVal52/cluster.getNumberOfPoints(), sumVal53/cluster.getNumberOfPoints(), sumVal54/cluster.getNumberOfPoints(), sumVal55/cluster.getNumberOfPoints(), sumVal56/cluster.getNumberOfPoints(), sumVal57/cluster.getNumberOfPoints(), sumVal58/cluster.getNumberOfPoints(), sumVal59/cluster.getNumberOfPoints(), sumVal60/cluster.getNumberOfPoints());
         return result;
-    }
+    } //end calculateCentroid method
 
 
 } //end of Main method
