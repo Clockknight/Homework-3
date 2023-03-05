@@ -25,10 +25,10 @@ public class K_Means{
                 for(int j = 0; j < inputCluster[i].getNumberOfPoints(); j++){
                     Point tempPoint = inputCluster[i].getPoints().get(j);
                     int closestCluster = pointBelongsToCluster(tempPoint, inputCluster);
-                    if(closestCluster == i){ //already in correct cluster
+                    if(closestCluster == i){ //point already in correct cluster
                         //break;
                     }
-                    else{
+                    else{ //assign point to closest cluster
                         inputCluster[closestCluster].addPoint(inputCluster[i].points.get(j));
                         inputCluster[i].points.remove(j);
                         pointChangedClusters = true;
@@ -49,7 +49,7 @@ public class K_Means{
         int closestCluster = clusters.length;
         double closestDistance = 999999999.999999999;
         double[] distances = new double[clusters.length];
-        for(int i = 0; i < clusters.length-1; i++){
+        for(int i = 0; i < clusters.length; i++){
             distances[i] = Point.distanceToCentroid(point, clusters[i].getCentroid());
         }
         for(int i = 0; i < distances.length; i++){
@@ -58,7 +58,6 @@ public class K_Means{
                 closestDistance = distances[i];
             }
         }
-        //System.out.println(closestCluster);
         return closestCluster;
     } //end pointBelongsToCluster method
 

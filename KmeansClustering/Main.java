@@ -1,17 +1,11 @@
 package KmeansClustering;
-//import java.io.InputStream;
-//import java.io.OutputStream;
-//import java.io.PrintWriter;
-//import java.util.Scanner;
-//import java.util.ArrayList;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.file.AccessDeniedException;
 import java.util.Arrays;
-//import java.util.List;
 import java.util.List;
 
 //Author: Ben Burbank
@@ -55,13 +49,10 @@ public class Main {
         createOutputFiles(myClusters);
         */
         
-        //nothing below this point is started
-        //int iterationLimit = 100;
         Cluster[] myClustersDone = K_Means.kMeansAlgorithm(myClusters);
-        createOutputFiles(myClustersDone);
+        createOutputFiles(myClustersDone);     
         
-        
-    }
+    } //end main method
 
     private static void createOutputFiles(Cluster[] myClustersDone) {
         String fileNames = "";
